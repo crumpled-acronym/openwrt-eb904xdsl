@@ -109,20 +109,28 @@
 		    <&gphy1_led0_pins>, <&gphy1_led1_pins>;
 	pinctrl-names = "default";
 
-	interface@0 {
+	lan: interface@0 {
 		compatible = "lantiq,xrx200-pdi";
 		#address-cells = <1>;
 		#size-cells = <0>;
 		reg = <0>;
 		mtd-mac-address = <&boardconfig 0x16>;
 		lantiq,switch;
-
-		ethernet@0 {
+		
+		ethernet@2 {
 			compatible = "lantiq,xrx200-pdi-port";
-			reg = <0>;
-			phy-mode = "mii";
-			phy-handle = <&phy1>;
+			reg = <2>;
+			phy-mode = "gmii";
+			phy-handle = <&phy11>;
 		};
+		ethernet@4 {
+			compatible = "lantiq,xrx200-pdi-port";
+			reg = <4>;
+			phy-mode = "gmii";
+			phy-handle = <&phy13>;
+		};
+// # VGV7510KW22 draufs. links->rechts: 3 2 5 4 0 : phy1=lan1=port3 / phy2=lan2=port2 / phy3=lan3=port5 / phy4=lan4=port5 / grau=null=port0
+/*		
 		ethernet@2 {
 			compatible = "lantiq,xrx200-pdi-port";
 			reg = <2>;
@@ -147,6 +155,7 @@
 			phy-mode = "mii";
 			phy-handle = <&phy14>;
 		};
+*/
 	};
 
 	mdio {
@@ -158,7 +167,16 @@
 			reg = <0x1>;
 			compatible = "ethernet-phy-ieee802.3-c22";
 		};
-
+		
+		phy11: ethernet-phy@11 {
+			reg = <0x11>;
+			compatible = "lantiq,phy11g", "ethernet-phy-ieee802.3-c22";
+		};
+		phy13: ethernet-phy@13 {
+			reg = <0x13>;
+			compatible = "lantiq,phy11g", "ethernet-phy-ieee802.3-c22";
+		};
+/*
 		phy11: ethernet-phy@11 {
 			reg = <0x11>;
 			compatible = "lantiq,phy22f", "ethernet-phy-ieee802.3-c22";
@@ -175,9 +193,18 @@
 			reg = <0x14>;
 			compatible = "lantiq,phy22f", "ethernet-phy-ieee802.3-c22";
 		};
+*/
 	};
 };
 
+&gphy0 {
+	lantiq,gphy-mode = <GPHY_MODE_GE>;
+};
+
+&gphy1 {
+	lantiq,gphy-mode = <GPHY_MODE_GE>;
+};
+/*
 &gphy0 {
 	lantiq,gphy-mode = <GPHY_MODE_FE>;
 };
@@ -185,6 +212,7 @@
 &gphy1 {
 	lantiq,gphy-mode = <GPHY_MODE_FE>;
 };
+*/
 
 &gpio {
 	pinctrl-names = "default";
