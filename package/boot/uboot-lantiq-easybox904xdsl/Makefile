@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_BUILD_DIR = $(BUILD_DIR)/$(PKG_NAME)
 PKG_SOURCE:=u-boot-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=ftp://ftp.denx.de/pub/u-boot
+PKG_SOURCE_URL:=https://ftp.denx.de/pub/u-boot
 PKG_MD5SUM:=cd42bc64b6edafa6930ce299a144503e
 PKG_CAT:=bzcat
 PKG_TARGETS:=bin
